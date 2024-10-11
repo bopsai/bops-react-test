@@ -46,7 +46,7 @@ export const TimeRangeContainer = styled.div`
   border: none;
 `;
 
-export const Option = styled.div`
+export const Option = styled.div<{ isSelected: boolean }>`
   width: 100px;
   height: 25px;
   text-align: center;
@@ -56,9 +56,23 @@ export const Option = styled.div`
   justify-content: space-around;
   align-items: center;
   border-bottom: 2px solid ${(props) => props.theme.colors.transparentBlack};
+  color: ${({ isSelected, theme }) => (isSelected ? theme.colors.bopsPurple : 'inherit')};
 
   &:hover {
     font-weight: 800;
     border-bottom: 2px solid ${(props) => props.theme.colors.bopsPurple};
   }
+`;
+
+export const NoDataContainer = styled.div`
+  width: 830px;
+  height: 270px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: ${(props) => props.theme.colors.cardBackgroundTransparent};
+  color: ${(props) => props.theme.colors.fontGrey};
+  font-size: 18px;
+  border: 1px solid ${(props) => props.theme.colors.cardBorder};
+  border-radius: 10px;
 `;
