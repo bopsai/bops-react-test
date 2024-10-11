@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import { LineChart } from '@Components';
 import {
   Container,
@@ -32,7 +33,10 @@ const MaterialCategoriesChart = ({
   timeRanges: TimeRangeOption[];
   onTimeRangeChange: (value: number) => void;
 }) => {
+  const [selectedTimeRange, setSelectedTimeRange] = useState<number>(timeRanges[0]?.value || 0);
+
   const onTimeRangeClicked = (option: TimeRangeOption) => {
+    setSelectedTimeRange(option.value);
     onTimeRangeChange(option.value);
   };
 
@@ -46,8 +50,14 @@ const MaterialCategoriesChart = ({
         </LineContainer>
         <TimeRangeContainer>
           {timeRanges.map((timeRange) => {
-            const option = <Option onClick={() => onTimeRangeClicked(timeRange)}>{timeRange.name}</Option>;
-            return <Div key={timeRange.value}>{option}</Div>;
+            const isSelected = timeRange.value === selectedTimeRange;
+            return (
+              <Div key={timeRange.value}>
+                <Option onClick={() => onTimeRangeClicked(timeRange)} isSelected={isSelected}>
+                  {timeRange.name}
+                </Option>
+              </Div>
+            );
           })}
         </TimeRangeContainer>
       </LineCard>

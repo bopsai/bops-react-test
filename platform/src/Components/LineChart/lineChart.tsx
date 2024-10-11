@@ -2,6 +2,7 @@ import { Chart, CategoryScale, LinearScale, PointElement, LineElement, Tooltip, 
 import { Line } from 'react-chartjs-2';
 import { baseTheme } from '@Themes';
 import { Container } from './lineChart.styles';
+import { NoDataContainer } from '../MaterialCategoriesChart/materialCategoriesChart.styles';
 
 Chart.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Filler);
 
@@ -38,6 +39,8 @@ const options = {
 };
 
 const LineChart = ({ xAxis, yAxis, targetAxis }: { xAxis: string[]; yAxis: number[]; targetAxis?: number[] }) => {
+  const hasData = xAxis.length > 0 && yAxis.length > 0;
+
   const datasets = {
     labels: xAxis,
     datasets: [
@@ -62,7 +65,13 @@ const LineChart = ({ xAxis, yAxis, targetAxis }: { xAxis: string[]; yAxis: numbe
 
   return (
     <Container>
-      <Line data={datasets} options={options} />
+      {hasData ? (
+        <Line data={datasets} options={options} />
+      ) : (
+        <NoDataContainer>
+          <p>No data available for the selected time range.</p>
+        </NoDataContainer>
+      )}
     </Container>
   );
 };
